@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title th:text="${Titulo}">Document</title>
+</head>
+<body>
+    <h1>Nombre:</h1>
+    <span th:text="${emp.nombre}"></span>
+
+    <h1>Puesto:</h1>
+    <span th:text="${emp.puesto}"></span>
+
+    <h1>Direccion:</h1>
+    <span th:text="${emp.direccion}"></span>
+
+    <h1>Telefono:</h1>
+    <span th:text="${emp.numero}"></span>
+
+    <h1>Salario:</h1>
+    <span th:text="${emp.salario}"></span>
+
+    <h1>Horas Trabajadas:</h1>
+    <span th:text="${emp.horas}"></span>
+
+    <hr>
+    <h2>Tabla con @Model Atribute:</h2>
+    <table border="2">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Puesto</th>
+                <th>Direccion</th>
+                <th>Numero</th>
+                <th>Salario</th>
+                <th>Horas Trabajadas</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="i:${Empleados}">
+                <td th:text="${i.nombre}"></td>
+                <td th:text="${i.puesto}"></td>
+                <td th:text="${i.direccion}"></td>
+                <td th:text="${i.numero}"></td>
+                <td th:text="${i.salario}"></td>
+                <td th:text="${i.horas}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
