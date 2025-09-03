@@ -59,95 +59,92 @@
        border-bottom: none;
    }
 
-   .product-brand {
+   .category {
        font-weight: 600;
        color: #333;
        margin-bottom: 0.2rem;
    }
 
-   .product-name {
-       font-weight: 500;
-       margin-bottom: 0.2rem;
-   }
-
-   .product-desc,
-   .product-url {
+   .descripcion,
+   .category-url {
        color: #6c757d;
        font-size: 0.9rem;
        margin-bottom: 0.5rem;
    }
 
-   .product-url {
-       color: #6c757d;
-       font-size: 0.9rem;
-       margin-bottom: 0.5rem;
-   }
-
-   .product-quantity {
-       color: #6c757d;
-       font-size: 0.9rem;
-   }
-
-   .price {
-       font-weight: 600;
-       text-align: right;
-   }
-
-   #img-producto {
+   #img-categoria {
        max-width: 200px;
    }
 
    /*
       Alertas de Sweet Alert js
     */
-.filters {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-  .filter-btn {
-    background: linear-gradient(135deg,#4b9fde,#1a73e8);
-    border: none;
-    padding: .5rem 1rem;
-    color: white;
-    border-radius: .25rem;
-    cursor: pointer;
-  }
-  .filter-btn:hover {
-    opacity: .9;
-  }
-  .swal2-input-custom {
-    border-radius: .25rem;
-    border: 1px solid #ccc;
-    padding: .5rem;
-  }
-  .swal2-confirm-custom {
-    background: #1a73e8 !important;
-    color: #fff !important;
-  }
-  .swal2-cancel-custom {
-    color: #555 !important;
-    border: 1px solid #aaa !important;
-  }
+   /* Contenedor de los botones */
+   .swal2-container .filters {
+       display: flex;
+       justify-content: center;
+       gap: 1rem;
+       margin-top: 1rem;
+   }
 
-  .filters {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-  .filter-btn {
-    background: linear-gradient(135deg, #6c757d, #343a40);
-    border: none;
-    padding: .5rem 1rem;
-    color: white;
-    border-radius: .25rem;
-    cursor: pointer;
-  }
-  .filter-btn:hover {
-    opacity: .9;
-  }
+   /* Botones de filtro */
+   .swal2-container .filter-btn {
+       background: linear-gradient(135deg, #4b9fde, #1a73e8);
+       border: none;
+       padding: .6rem 1.2rem;
+       color: #fff;
+       border-radius: .4rem;
+       font-size: 1rem;
+       cursor: pointer;
+       transition: transform .1s, box-shadow .2s;
+   }
+
+   .swal2-container .filter-btn:hover {
+       transform: translateY(-2px);
+       box-shadow: 0 4px 10px rgba(0, 0, 0, .2);
+   }
+
+   /* Input del segundo modal */
+   .swal2-input-custom {
+       border-radius: .4rem;
+       border: 1px solid #ccc;
+       padding: .6rem;
+       font-size: 1rem;
+   }
+
+   /* Botones de confirmación/cancelación en segundo modal */
+   .swal2-confirm-custom {
+       background: #1a73e8 !important;
+       color: #fff !important;
+   }
+
+   .swal2-cancel-custom {
+       border: 1px solid #aaa !important;
+       color: #555 !important;
+   }
+
+   .swal2-container .order-filters {
+       display: flex;
+       justify-content: center;
+       gap: 1rem;
+       margin-top: 1rem;
+   }
+
+   .swal2-container .order-btn {
+       background: linear-gradient(135deg, #34a853, #0f9d58);
+       border: none;
+       padding: .6rem 1.2rem;
+       color: #fff;
+       border-radius: .4rem;
+       font-size: 1rem;
+       cursor: pointer;
+       transition: transform .1s, box-shadow .2s;
+   }
+
+   .swal2-container .order-btn:hover {
+       transform: translateY(-2px);
+       box-shadow: 0 4px 10px rgba(0, 0, 0, .2);
+   }
 
 
    /* Footer nav */
@@ -210,9 +207,9 @@
            text-align: left;
        }
 
-       #img-producto {
+       #img-categoria {
            max-width: 400px;
-           margin-left: 33px;
+           margin-left: 47px;
        }
 
        .product-item .row {

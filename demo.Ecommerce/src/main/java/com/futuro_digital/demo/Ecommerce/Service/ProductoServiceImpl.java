@@ -1,8 +1,6 @@
 package com.futuro_digital.demo.Ecommerce.Service;
 
-import com.futuro_digital.demo.Ecommerce.DTO.CategoriaDTO;
 import com.futuro_digital.demo.Ecommerce.DTO.ProductoDTO;
-import com.futuro_digital.demo.Ecommerce.Entity.Categoria;
 import com.futuro_digital.demo.Ecommerce.Entity.Producto;
 import com.futuro_digital.demo.Ecommerce.Repository.CategoriaRepository;
 import com.futuro_digital.demo.Ecommerce.Repository.ProductoRepository;
@@ -12,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -39,7 +36,7 @@ public class ProductoServiceImpl implements ProductoService {
     @Override
     @Transactional
     public Producto saveProducto(ProductoDTO productoDTO) {
-        var categoria = findCategoriaById(productoDTO.categoria());
+        var categoria = categoriaRepository.findById(productoDTO.categoria().id()).get();
         var producto = Producto.builder()
                 .nombre(productoDTO.nombre())
                 .marca(productoDTO.marca())
@@ -62,7 +59,7 @@ public class ProductoServiceImpl implements ProductoService {
     @Override
     @Transactional
     public Producto editProducto(ProductoDTO dto, Long id) {
-        var prodOpt = Optional.ofNullable(findProductoById(id));
+        var prodOpt = productoRepository.findById(id);
 
         if (id == null || prodOpt.isEmpty()) {
             throw new IllegalStateException("Producto no encontrado con ID: " + id);
@@ -81,40 +78,11 @@ public class ProductoServiceImpl implements ProductoService {
 
         // Buscar y asignar la categoría
         if (dto.categoria() != null && dto.categoria().id() != null) {
-            var categoria = findCategoriaById(dto.categoria());
+            var categoria = categoriaRepository.findById(dto.categoria().id()).get();
             producto.setCategoria(categoria);
         }
 
         return productoRepository.save(producto);
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<Categoria> getListOfCategorias() {
-        return categoriaRepository.findAll();
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Categoria findCategoriaById(CategoriaDTO dto) {
-        return categoriaRepository.findById(dto.id())
-                .orElseThrow(() -> new IllegalStateException("Categoria con ID :"+dto.id()+" no encontrado..."));
-    }
-
-    @Override
-    @Transactional
-    public Categoria saveCategoria(CategoriaDTO dto) {
-        var categoria = Categoria.builder()
-                .categoria(dto.categoria())
-                .descripcion(dto.descripcion())
-                .url_imagen(dto.url_imagen())
-                .build();
-        return categoriaRepository.save(categoria);
-    }
-
-    @Override
-    @Transactional
-    public void deleteCategoria(Long id) {
-        categoriaRepository.deleteById(id);
-    }
 }

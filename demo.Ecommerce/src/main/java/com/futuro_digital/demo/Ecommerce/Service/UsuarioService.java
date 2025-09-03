@@ -18,4 +18,6 @@ public interface UsuarioService {
     void deleteUsuario(UsuarioDTO dto);
 
     Favoritos guardarFavorito(ProductoDTO dto, UsuarioDTO user);
+
+
 }

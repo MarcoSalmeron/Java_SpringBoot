@@ -7,20 +7,45 @@
     <title>Gestor Inventario</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"/>
+
 </head>
 
 <body>
-<div class="items-container">
+<div class="items-container mb-5">
     <h1 class="p-4 pb-2 text-center">Gestor de Inventario</h1>
     <hr>
 
     <div class="filters-btns ms-4" role="group" aria-label="Opciones de filtros">
-        <button type="button" aria-label="Listado" id="btn-opciones" style="min-width: 45px; min-height: 45px;"><svg
-                xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
-                class="bi bi-filter-left" viewBox="0 0 16 16">
-            <path
-                    d="M2 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5" />
-        </svg></button>
+        <button type="button" aria-label="Listado" id="btn-filtrar" class="btn btn-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                 class="bi bi-filter-circle mx-1" viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                <path
+                        d="M7 11.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5" />
+            </svg>
+            Filtrar
+        </button>
+
+        <button type="button" aria-label="Listado" class="btn btn-sm " id="btn-ordenar">
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
+                 class="bi bi-sort-down-alt mx-1" viewBox="0 0 16 16">
+                <path
+                        d="M3.5 3.5a.5.5 0 0 0-1 0v8.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L3.5 12.293zm4 .5a.5.5 0 0 1 0-1h1a.5.5 0 0 1 0 1zm0 3a.5.5 0 0 1 0-1h3a.5.5 0 0 1 0 1zm0 3a.5.5 0 0 1 0-1h5a.5.5 0 0 1 0 1zM7 12.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7a.5.5 0 0 0-.5.5" />
+            </svg>
+            Ordenar
+        </button>
+
+        <button type="button" aria-label="Listado" class="btn btn-sm" id="btn-mostrar-categorias">
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
+                 class="bi bi-bookmarks mx-1" viewBox="0 0 16 16">
+                <path
+                        d="M2 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L7 13.101l-4.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v10.566l3.723-2.482a.5.5 0 0 1 .554 0L11 14.566V4a1 1 0 0 0-1-1z" />
+                <path
+                        d="M4.268 1H12a1 1 0 0 1 1 1v11.768l.223.148A.5.5 0 0 0 14 13.5V2a2 2 0 0 0-2-2H6a2 2 0 0 0-1.732 1" />
+            </svg>
+            Categorías
+        </button>
     </div>
     <!-- Encabezado de la tabla (solo visible en desktop) -->
     <div class="d-none d-md-grid table-header" style="grid-template-columns: 1fr 2fr 1fr;">
@@ -37,59 +62,59 @@
     <div th:each="producto : ${productos_lista}" class="product-item px-3 my-3">
         <div class="row">
             <div class="col-md-3 mx-auto my-3">
-                <img th:src="@{${producto.url_imagen}}" alt="Imagen del producto" style="max-with:400px;" id="img-producto" class="mx-3 my-3">
+                <img th:src="@{${producto.url_imagen}}" alt="Imagen del producto" style="max-with:400px;"
+                     id="img-producto" class="mx-3 my-3">
             </div>
             <div class="col-md-6 mx-auto my-3">
                 <div class="my-2 ms-3 product-brand" th:text="${'Marca: ' + producto.marca}">Marca</div>
-                <div class="my-2 ms-3 product-name" th:text="${'Nombre: ' + producto.nombre}">Nombre del producto</div>
-                <div class="my-2 ms-3 product-desc" th:text="${'Descripcion: ' + producto.descripcion}">Descripción</div>
+                <div class="my-2 ms-3 product-name" th:text="${'Nombre: ' + producto.nombre}">Nombre del producto
+                </div>
+                <div class="my-2 ms-3 product-desc" th:text="${'Descripcion: ' + producto.descripcion}">Descripción
+                </div>
                 <div class="my-2 ms-3 product-quantity" th:text="'Cantidad: ' + ${producto.cantidad}">Cantidad</div>
-                <div class="my-2 ms-3 product-url" th:text="${'URL: ' + producto.url_imagen}" style="color: #6c757d;">Url Imagen</div>
-                <div class="my-2 ms-3" th:text="${'Descuento: ' + producto.porcentajeDescuento + ' %'}">Descuento</div>
-                <div class="my-2 ms-3 fw-bold" th:text="${'Categoria: ' + producto.categoria.categoria}">Nombre Categoria</div>
+                <div class="my-2 ms-3 product-url" th:text="${'URL: ' + producto.url_imagen}"
+                     style="color: #6c757d;">Url Imagen</div>
+                <div class="my-2 ms-3" th:text="${'Descuento: ' + producto.porcentajeDescuento + ' %'}">Descuento
+                </div>
+                <div class="my-2 ms-3 fw-bold" th:text="${'Categoria: ' + producto.categoria.categoria}">Nombre
+                    Categoria</div>
                 <!-- Botones de acción -->
                 <div class="action-buttons mt-2">
 
                     <!-- Botón de edición -->
                     <button type="button" class="btn  btn-sm btn-primary  ms-3 btn-editar"
-                            th:data-id="${producto.id}"
-                            th:data-nombre="${producto.nombre}"
-                            th:data-marca="${producto.marca}"
-                            th:data-descripcion="${producto.descripcion}"
-                            th:data-cantidad="${producto.cantidad}"
-                            th:data-precio="${producto.precio}"
-                            th:data-descuento="${producto.porcentajeDescuento}"
-                            th:data-imagen="${producto.url_imagen}"
+                            th:data-id="${producto.id}" th:data-nombre="${producto.nombre}"
+                            th:data-marca="${producto.marca}" th:data-descripcion="${producto.descripcion}"
+                            th:data-cantidad="${producto.cantidad}" th:data-precio="${producto.precio}"
+                            th:data-descuento="${producto.porcentajeDescuento}" th:data-imagen="${producto.url_imagen}"
                             th:data-categoria="${producto.categoria.id}">
                         Editar
                     </button>
 
                     <!-- Boton de eliminacion -->
-                    <button class="btn btn-sm btn-danger ms-4 btn-eliminar" th:attr="data-url=@{/api/admin/delete/{id}(id=${producto.id})}">
+                    <button class="btn btn-sm btn-danger ms-4 btn-eliminar"
+                            th:attr="data-url=@{/api/admin/productos/delete/{id}(id=${producto.id})}">
                         Eliminar
                     </button>
                 </div>
             </div>
             <div class="col-md-3 mx-auto my-3">
-                <div th:text="'$' + ${producto.precio}" class="price ">Precio</div>
+                <div th:text="'$' + ${producto.precio}" class="price text-center">Precio</div>
             </div>
         </div>
     </div>
     <hr>
-    <div class="d-flex justify-content-evenly mb-5">
+    <div class="d-flex justify-content-center mb-4">
         <button class="btn btn-link" data-bs-target="#modal-nuevo-producto" data-bs-toggle="modal">
             Nuevo Producto +
-        </button>
-        <button class="btn btn-link" data-bs-target="#modal-nueva-categoria" data-bs-toggle="modal">
-            Nueva Categoría +
         </button>
     </div>
 </div>
 
-<footer class="container-fluid">
+<footer class="container-fluid mt-3">
     <nav class="footer-nav" role="navigation" aria-label="Navegación inferior">
         <button class="active" aria-label="Inicio">
-            <a th:href="@{/api/admin/index}">
+            <a th:href="@{/api/admin/productos/all}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="26" fill="currentColor"
                      class="bi bi-database-check" viewBox="0 0 16 16">
                     <path
@@ -146,7 +171,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <form th:action="@{/api/admin/save}" th:object="${productoDTO}" method="post">
+            <form th:action="@{/api/admin/productos/save}" th:object="${productoDTO}" method="post">
                 <input type="hidden" th:field="*{id}" />
 
                 <div class="modal-body">
@@ -207,7 +232,8 @@
                                 <label for="categoria" class="form-label">Categoría</label>
                                 <select th:field="*{categoria.id}" class="form-select" id="categoria" required>
                                     <option value="" disabled selected>Selecciona una categoría</option>
-                                    <option th:each="cat : ${categorias_lista}" th:value="${cat.id}" th:text="${cat.categoria}"></option>
+                                    <option th:each="cat : ${categorias_lista}" th:value="${cat.id}"
+                                            th:text="${cat.categoria}"></option>
                                 </select>
                             </div>
 
@@ -230,76 +256,20 @@
     </div>
 </div>
 
-
-
-<!-- Modal nueva Categoria -->
-<div id="modal-nueva-categoria" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-     aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <h5 class="modal-title">Nueva Categoría</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar">
-                </button>
-            </div>
-
-            <form th:action="@{/api/admin/category/save}" th:object="${categoriaDTO}" method="post">
-                <input type="hidden" th:field="*{id}" />
-                <div class="modal-body">
-                    <div class="container-fluid">
-                        <div class="row gx-2">
-
-                            <!-- Nombre de la categoría -->
-                            <div class="col-12 mb-3">
-                                <label for="categoriaTxt" class="form-label">Categoría</label>
-                                <input type="text" th:field="*{categoria}" class="form-control" id="categoriaTxt" required
-                                       placeholder="Nombre de la categoría">
-                            </div>
-
-                            <!-- Descripción -->
-                            <div class="col-12 mb-3">
-                                <label for="descripcionTxt" class="form-label">Descripción</label>
-                                <textarea th:field="*{descripcion}" class="form-control" id="descripcionTxt" rows="3" required
-                                          placeholder="Descripción de la categoría"></textarea>
-                            </div>
-
-                            <!-- URL de la imagen -->
-                            <div class="col-12 mb-3">
-                                <label for="urlImagen" class="form-label">URL de Imagen</label>
-                                <input type="url" th:field="*{url_imagen}" class="form-control" id="urlImagen" required
-                                       placeholder="https://...">
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal-footer justify-content-evenly">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        Cerrar
-                    </button>
-                    <button type="submit" class="btn btn-success">
-                        Agregar
-                    </button>
-                </div>
-            </form>
-
-        </div>
-    </div>
-</div>
-
 <!-- Modal de edición único -->
 <!-- Modal de edición -->
-<div class="modal fade" id="modal-editar" tabindex="-1" aria-labelledby="modalEditarLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+<div class="modal fade" id="modal-editar" tabindex="-1" aria-labelledby="modalEditarLabel" aria-hidden="true"
+     data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form id="form-editar" th:object="${productoDTO}" data-action-template="/api/admin/edit/{id}" method="post">
+            <form id="form-editar" th:object="${productoDTO}" data-action-template="/api/admin/productos/edit/{id}"
+                  method="post">
                 <input type="hidden" id="edit-id" th:field="*{id}" />
 
                 <div class="modal-header bg-primary text-white">
                     <h5 class="modal-title" id="modalEditarLabel">Editar Producto</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                            aria-label="Cerrar"></button>
                 </div>
 
                 <div class="modal-body">
@@ -309,7 +279,8 @@
 
                     <div class="row g-3">
                         <div class="col-md-6">
-                            <label for="edit-nombre" class="form-label">Nombre <span class="text-danger">*</span></label>
+                            <label for="edit-nombre" class="form-label">Nombre <span
+                                    class="text-danger">*</span></label>
                             <input type="text" th:field="*{nombre}" class="form-control" id="edit-nombre"
                                    th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid' : ''" required />
                             <div th:if="${#fields.hasErrors('nombre')}" class="invalid-feedback">
@@ -318,7 +289,8 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label for="edit-marca" class="form-label">Marca <span class="text-danger">*</span></label>
+                            <label for="edit-marca" class="form-label">Marca <span
+                                    class="text-danger">*</span></label>
                             <input type="text" th:field="*{marca}" class="form-control" id="edit-marca"
                                    th:classappend="${#fields.hasErrors('marca')} ? 'is-invalid' : ''" required />
                             <div th:if="${#fields.hasErrors('marca')}" class="invalid-feedback">
@@ -327,27 +299,33 @@
                         </div>
 
                         <div class="col-12">
-                            <label for="edit-descripcion" class="form-label">Descripción <span class="text-danger">*</span></label>
+                            <label for="edit-descripcion" class="form-label">Descripción <span
+                                    class="text-danger">*</span></label>
                             <textarea th:field="*{descripcion}" class="form-control" id="edit-descripcion" rows="3"
-                                      th:classappend="${#fields.hasErrors('descripcion')} ? 'is-invalid' : ''" required></textarea>
+                                      th:classappend="${#fields.hasErrors('descripcion')} ? 'is-invalid' : ''"
+                                      required></textarea>
                             <div th:if="${#fields.hasErrors('descripcion')}" class="invalid-feedback">
                                 <span th:errors="*{descripcion}"></span>
                             </div>
                         </div>
 
                         <div class="col-md-4">
-                            <label for="edit-cantidad" class="form-label">Cantidad <span class="text-danger">*</span></label>
+                            <label for="edit-cantidad" class="form-label">Cantidad <span
+                                    class="text-danger">*</span></label>
                             <input type="number" th:field="*{cantidad}" class="form-control" id="edit-cantidad"
-                                   th:classappend="${#fields.hasErrors('cantidad')} ? 'is-invalid' : ''" min="0" required />
+                                   th:classappend="${#fields.hasErrors('cantidad')} ? 'is-invalid' : ''" min="0"
+                                   required />
                             <div th:if="${#fields.hasErrors('cantidad')}" class="invalid-feedback">
                                 <span th:errors="*{cantidad}"></span>
                             </div>
                         </div>
 
                         <div class="col-md-4">
-                            <label for="edit-precio" class="form-label">Precio <span class="text-danger">*</span></label>
+                            <label for="edit-precio" class="form-label">Precio <span
+                                    class="text-danger">*</span></label>
                             <input type="number" th:field="*{precio}" class="form-control" id="edit-precio"
-                                   th:classappend="${#fields.hasErrors('precio')} ? 'is-invalid' : ''" min="0" required />
+                                   th:classappend="${#fields.hasErrors('precio')} ? 'is-invalid' : ''" min="0"
+                                   required />
                             <div th:if="${#fields.hasErrors('precio')}" class="invalid-feedback">
                                 <span th:errors="*{precio}"></span>
                             </div>
@@ -355,15 +333,18 @@
 
                         <div class="col-md-4">
                             <label for="edit-descuento" class="form-label">Descuento (%)</label>
-                            <input type="number"  th:field="*{porcentajeDescuento}" class="form-control" id="edit-descuento"
-                                   th:classappend="${#fields.hasErrors('porcentajeDescuento')} ? 'is-invalid' : ''" min="0" max="30" />
+                            <input type="number" th:field="*{porcentajeDescuento}" class="form-control"
+                                   id="edit-descuento"
+                                   th:classappend="${#fields.hasErrors('porcentajeDescuento')} ? 'is-invalid' : ''"
+                                   min="0" max="30" />
                             <div th:if="${#fields.hasErrors('porcentajeDescuento')}" class="invalid-feedback">
                                 <span th:errors="*{porcentajeDescuento}"></span>
                             </div>
                         </div>
 
                         <div class="col-12">
-                            <label for="edit-imagen" class="form-label">URL Imagen <span class="text-danger">*</span></label>
+                            <label for="edit-imagen" class="form-label">URL Imagen <span
+                                    class="text-danger">*</span></label>
                             <input type="text" th:field="*{url_imagen}" class="form-control" id="edit-imagen"
                                    th:classappend="${#fields.hasErrors('url_imagen')} ? 'is-invalid' : ''" required />
                             <div th:if="${#fields.hasErrors('url_imagen')}" class="invalid-feedback">
@@ -372,14 +353,13 @@
                         </div>
 
                         <div class="col-12">
-                            <label for="edit-categoria" class="form-label">Categoría <span class="text-danger">*</span></label>
+                            <label for="edit-categoria" class="form-label">Categoría <span
+                                    class="text-danger">*</span></label>
                             <select th:field="*{categoria.id}" class="form-select" id="edit-categoria"
                                     th:classappend="${#fields.hasErrors('categoria.id')} ? 'is-invalid' : ''" required>
                                 <option value="">Seleccione una categoría</option>
-                                <option th:each="cat : ${categorias_lista}"
-                                        th:value="${cat.id}"
-                                        th:text="${cat.categoria}"
-                                        th:selected="${cat.id == productoDTO.categoria.id}">
+                                <option th:each="cat : ${categorias_lista}" th:value="${cat.id}"
+                                        th:text="${cat.categoria}" th:selected="${cat.id == productoDTO.categoria.id}">
                                 </option>
                             </select>
                             <div th:if="${#fields.hasErrors('categoria.id')}" class="invalid-feedback">
@@ -404,35 +384,35 @@
 <script src="/js/admin.js"></script>
 
 <script>
-    document.addEventListener('DOMContentLoaded', ()=> {
-      const modalEl   = document.getElementById('modal-editar');
-      const modal     = new bootstrap.Modal(modalEl);
-      const formEditar= document.getElementById('form-editar');
-      const template  = formEditar.dataset.actionTemplate; // "/api/admin/edit/{id}"
+    document.addEventListener('DOMContentLoaded', () => {
+        const modalEl = document.getElementById('modal-editar');
+        const modal = new bootstrap.Modal(modalEl);
+        const formEditar = document.getElementById('form-editar');
+        const template = formEditar.dataset.actionTemplate; // "/api/admin/productos/edit/{id}"
 
-      document.querySelectorAll('.btn-editar').forEach(btn => {
-        btn.addEventListener('click', ()=> {
-          // Poblar campos
-          document.getElementById('edit-id').value          = btn.dataset.id;
-          document.getElementById('edit-nombre').value      = btn.dataset.nombre;
-          document.getElementById('edit-marca').value       = btn.dataset.marca;
-          document.getElementById('edit-descripcion').value = btn.dataset.descripcion;
-          document.getElementById('edit-cantidad').value    = btn.dataset.cantidad;
-          document.getElementById('edit-precio').value      = btn.dataset.precio;
-          document.getElementById('edit-descuento').value   = btn.dataset.descuento;
-          document.getElementById('edit-imagen').value      = btn.dataset.imagen;
-          document.getElementById('edit-categoria').value   = btn.dataset.categoria;
+        document.querySelectorAll('.btn-editar').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Poblar campos
+                document.getElementById('edit-id').value = btn.dataset.id;
+                document.getElementById('edit-nombre').value = btn.dataset.nombre;
+                document.getElementById('edit-marca').value = btn.dataset.marca;
+                document.getElementById('edit-descripcion').value = btn.dataset.descripcion;
+                document.getElementById('edit-cantidad').value = btn.dataset.cantidad;
+                document.getElementById('edit-precio').value = btn.dataset.precio;
+                document.getElementById('edit-descuento').value = btn.dataset.descuento;
+                document.getElementById('edit-imagen').value = btn.dataset.imagen;
+                document.getElementById('edit-categoria').value = btn.dataset.categoria;
 
-          // Actualizar URL de envío
-          formEditar.setAttribute(
-            'action',
-            template.replace('{id}', btn.dataset.id)
-          );
+                // Actualizar URL de envío
+                formEditar.setAttribute(
+                    'action',
+                    template.replace('{id}', btn.dataset.id)
+                );
 
-          // Mostrar modal
-          modal.show();
+                // Mostrar modal
+                modal.show();
+            });
         });
-      });
     });
 </script>
 
