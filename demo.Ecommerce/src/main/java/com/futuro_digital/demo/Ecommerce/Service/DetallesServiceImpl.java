@@ -49,7 +49,7 @@ public class DetallesServiceImpl implements DetallesService {
                 .pedido(pedido)
                 .producto(producto)
                 .cantidad(dto.cantidad())
-                .total(dto.total())
+                .precio_unitario(dto.precio_unitario())
                 .build();
         return detallesPedidoRepository.save(detalle);
     }

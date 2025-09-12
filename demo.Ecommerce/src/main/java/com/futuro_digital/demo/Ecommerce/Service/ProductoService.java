@@ -15,6 +15,8 @@ public interface ProductoService {
 
     Producto findProductoById(Long id);
 
+    Producto findProductoByNombre(String nombre);
+
     Producto saveProducto(ProductoDTO productoDTO);
 
     void deleteProducto(Long id);

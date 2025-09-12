@@ -1,5 +1,6 @@
 package com.futuro_digital.demo.Ecommerce.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
@@ -39,6 +40,7 @@ public class Direccion implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO",
             foreignKey = @ForeignKey(name = "direcciones_ibfk_1"))
+    @JsonIgnore
     private Usuario usuario;
 
 

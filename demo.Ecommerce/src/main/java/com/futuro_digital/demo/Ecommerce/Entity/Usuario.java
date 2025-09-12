@@ -33,9 +33,6 @@ public class Usuario implements Serializable {
     @Column(name = "password", nullable = false, length = 100)
     private String password;
 
-    @Basic
-    private String direccion;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_ROL", nullable = false)
     private Rol rol;

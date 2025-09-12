@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Data
@@ -27,12 +28,15 @@ public class Pedido implements Serializable {
     @Column(name = "fecha")
     private LocalDate fecha;
 
-    @Column(name = "precio_envio")
-    private Double precioEnvio;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_USUARIO", nullable = false)
     private Usuario usuario;
 
+    @ManyToOne
+    @JoinColumn(name = "ID_Carrito")
+    private Carrito carrito;
+
+    @OneToMany(mappedBy = "pedido")
+    private List<DetallePedido> detallesPedido;
 
 }

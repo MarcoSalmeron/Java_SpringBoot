@@ -5,5 +5,5 @@ public record DetallePedidoDTO(
         PedidoDTO pedido,
         ProductoDTO producto,
         Integer cantidad,
-        Double total
+        Double precio_unitario
 ) {}

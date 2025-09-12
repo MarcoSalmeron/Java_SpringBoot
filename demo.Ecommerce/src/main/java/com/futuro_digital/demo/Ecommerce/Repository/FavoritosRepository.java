@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface FavoritosRepository extends JpaRepository<Favoritos,Long> {
+
+    boolean existsByUsuario_IdAndProducto_Id(Long idUsuario, Long idProducto);
 }

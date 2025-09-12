@@ -14,7 +14,9 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "FAVORITOS")
+@Table(name = "FAVORITOS", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"ID_USUARIO", "ID_Producto"})
+})
 public class Favoritos implements Serializable {
 
     private static final long serialVersionUID = 1l;

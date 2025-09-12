@@ -34,6 +34,12 @@ public class ProductoServiceImpl implements ProductoService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public Producto findProductoByNombre(String nombre) {
+        return productoRepository.findByNombre(nombre).orElseThrow(() -> new IllegalStateException("Producto con Nombre : "+nombre+" no encontrado..."));
+    }
+
+    @Override
     @Transactional
     public Producto saveProducto(ProductoDTO productoDTO) {
         var categoria = categoriaRepository.findById(productoDTO.categoria().id()).get();

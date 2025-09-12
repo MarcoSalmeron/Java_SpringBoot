@@ -6,5 +6,4 @@ public record DireccionDTO(
         String codigoPostal,
         String ciudad,
         UsuarioDTO usuario
-) {
-}
+) {}

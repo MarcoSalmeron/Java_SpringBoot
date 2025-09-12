@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
+    <title>Favoritos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/favoritos.css">
+</head>
+
+<body>
+<div class="favorites-container">
+    <h1 class="p-4 pb-2 text-center">Favoritos Guardados</h1>
+    <hr>
+
+    <!-- Encabezado de la tabla (solo visible en desktop) -->
+    <div class="d-none d-md-grid table-header" style="grid-template-columns: 1fr 2fr 1fr;">
+        <div>ARTÍCULOS</div>
+        <div>DETALLES</div>
+        <div class="text-end">PRECIO</div>
+    </div>
+
+    <div th:if="${#lists.isEmpty(favoritos_lista)}">
+        <u>
+            <p class="text-center m-5 fw-bold fst-italic fs-4">Aún no agregas productos a tu lista de favoritos...</p>
+        </u>
+    </div>
+    <!-- Productos en favoritos -->
+    <div class="favorite-item" th:each="fav : ${favoritos_lista}">
+        <div class="row">
+            <div class="col-md-3 mx-auto my-3" >
+                <img th:src="@{${fav.producto.url_imagen}}"  style="max-width:200px;" class="mx-3 my-3 rounded-4"/>
+            </div>
+            <div class="col-md-6">
+                <div class="product-brand" th:text="${'Marca: ' + fav.producto.marca}">Marca</div>
+                <div class="product-name" th:text="${'Nombre: ' + fav.producto.nombre}">Nombre del producto</div>
+                <div class="product-category" th:text="${'Categoría: ' + fav.producto.categoria.categoria}">Categoria del Producto</div>
+                <div class="product-desc" th:text="${'Descripción: ' + fav.producto.descripcion}">Descripción</div>
+                <div class="product-quantity" th:text="${'Stock: ' + fav.producto.cantidad}">Cantidad: 1</div>
+                <button class="btn btn-sm btn-danger mt-3 btn-eliminar-favorito"
+                        th:attr="data-producto-id=${fav.id}">
+                    Eliminar de Favoritos
+                </button>
+            </div>
+            <div class="col-md-3">
+                <div class="price d-none d-md-block" th:text="${fav.producto.precio}">$Precio Ejemplo</div>
+                <div class="mobile-price d-md-none text-center" th:text="${fav.producto.precio}">$Precio Ejemplo</div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center my-2">
+        <a class="btn btn-success" th:href="@{'/api/home/productos/all'}">
+            Agregar +
+        </a>
+    </div>
+
+</div>
+
+<footer class="container-fluid mt-5">
+    <nav class="footer-nav" role="navigation" aria-label="Navegación inferior">
+        <button class="active" aria-label="Inicio">
+            <a th:href="@{'/api/home/productos/all'}">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M3 9.5l9-7 9 7V20a2 2 0 0 1-2 2h-4v-6H9v6H5a2 2 0 0 1-2-2z" />
+                </svg>
+            </a>
+            Inicio
+        </button>
+        <button aria-label="Carrito">
+            <a th:href="@{'/api/home/productos/carrito'}">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                </svg>
+            </a>
+            Carrito
+        </button>
+        <button aria-label="Favoritos">
+            <a th:href="@{'/api/home/productos/favorites'}"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                                                 class="bi bi-bag-heart-fill" viewBox="0 0 16 16">
+                <path
+                        d="M11.5 4v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m0 6.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+            </svg>
+            </a>
+            Favoritos
+        </button>
+        <button type="button" class="btn btn-outline-danger btn-sm" id="logoutBtn" aria-label="Logout">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-door-open" viewBox="0 0 16 16">
+                <path d="M8.5 10c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1"/>
+                <path d="M10.828.122A.5.5 0 0 1 11 .5V1h.5A1.5 1.5 0 0 1 13 2.5V15h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3V1.5a.5.5 0 0 1 .43-.495l7-1a.5.5 0 0 1 .398.117M11.5 2H11v13h1V2.5a.5.5 0 0 0-.5-.5M4 1.934V15h6V1.077z"/>
+            </svg>
+            Cerrar Sesión
+        </button>
+        <form id="logoutForm" th:action="@{/logout}" method="post" style="display:none;">
+            <input type="hidden" name="_csrf" th:value="${_csrf.token}" th:name="${_csrf.parameterName}">
+        </form>
+    </nav>
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    const btnEliminarFavoritos = document.querySelectorAll(".btn-eliminar-favorito");
+    const csrfToken  = document.querySelector('meta[name="_csrf"]').content;
+    const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
+
+    btnEliminarFavoritos.forEach(boton => {
+      boton.addEventListener("click", function () {
+        const productoId = this.getAttribute("data-producto-id");
+
+        Swal.fire({
+          title: '¿Eliminar de favoritos?',
+          text: 'Esta acción no se puede deshacer.',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#d33',
+          cancelButtonColor: '#3085d6',
+          confirmButtonText: 'Sí, eliminar',
+          cancelButtonText: 'Cancelar'
+        }).then((result) => {
+          if (!result.isConfirmed) return;
+
+          const headers = {};
+          headers[csrfHeader] = csrfToken;
+
+          fetch(`/api/home/productos/delete/favoritos/${productoId}`, {
+            method: 'DELETE',
+            headers
+          })
+          .then(async response => {
+            console.log('Status:', response.status);
+            if (response.status === 204) {
+              await Swal.fire('Eliminado', 'El producto fue eliminado de tus favoritos.', 'success');
+              location.reload();
+            } else if (response.status === 404) {
+              Swal.fire('No encontrado', 'El favorito no existe o ya fue eliminado.', 'info');
+            } else if (response.status === 400) {
+              Swal.fire('Solicitud inválida', 'No se recibió el ID del favorito.', 'warning');
+            } else {
+              Swal.fire('Error', 'No se pudo eliminar el producto.', 'error');
+            }
+          })
+          .catch(err => {
+            console.error('Error de red:', err);
+            Swal.fire('Error', 'Ocurrió un problema al conectar con el servidor.', 'error');
+          });
+        });
+      });
+    });
+</script>
+
+</body>
+
+</html>

@@ -7,36 +7,31 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-
-@Entity
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "DETALLES_PEDIDO")
-public class DetallePedido implements Serializable {
-
-    private static final long serialVersionUID = 1l;
+@Builder
+@Entity
+@Table(name = "DETALLES_CARRITO")
+public class DetalleCarrito {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_Detalle_Pedido")
+    @Column(name = "ID_Detalle_Carrito")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_Pedido", nullable = false)
-    private Pedido pedido;
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "ID_Carrito", nullable = false)
+    private Carrito carrito;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @NotNull
+    @ManyToOne
     @JoinColumn(name = "ID_Producto", nullable = false)
     private Producto producto;
 
     @NotNull
     @Column(name = "cantidad")
     private Integer cantidad;
-
-    @NotNull
-    @Column(name = "precio_unitario", nullable = false)
-    private Double precio_unitario;
 }
+

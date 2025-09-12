@@ -18,7 +18,7 @@ import java.util.List;
 @Table(name = "ROLES")
 public class Rol implements Serializable {
 
-    private static final long serialVersionUID = 1l;
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
