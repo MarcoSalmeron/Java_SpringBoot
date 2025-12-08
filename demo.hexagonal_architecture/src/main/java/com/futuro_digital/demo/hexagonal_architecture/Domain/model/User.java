@@ -19,3 +19,4 @@ public record User(
          String email
 ) {
 }
+
