@@ -1,13 +1,12 @@
 package com.futuro_digital.demo.hexagonal_architecture.Application.ports.out;
 
-import com.futuro_digital.demo.hexagonal_architecture.Application.dto.UserDTO;
 import com.futuro_digital.demo.hexagonal_architecture.Domain.model.User;
 
 import java.util.List;
 
 public interface UserRepositoryOutPort {
 
-    User createUser(UserDTO dto);
+    User createUser(User dto);
 
     User findUser(Long id);
 
