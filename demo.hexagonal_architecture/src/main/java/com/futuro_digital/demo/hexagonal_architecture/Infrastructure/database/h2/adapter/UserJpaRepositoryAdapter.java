@@ -12,9 +12,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * Adaptador a Base de Datos H2:
+ *  ( implementa la interfáz de salida "OutPort" )
+ *  ( usa el modelo de dominio )
+ *  ( dependencias: repositorio a base de datos "H2" )
+ */
 @Repository
 @RequiredArgsConstructor
-public class JpaUserRepositoryAdapter implements UserRepositoryOutPort {
+public class UserJpaRepositoryAdapter implements UserRepositoryOutPort {
 
     private final SpringDataUserRepository springDataUserRepository;
 
@@ -22,6 +28,7 @@ public class JpaUserRepositoryAdapter implements UserRepositoryOutPort {
     @Transactional
     public User createUser(User user) {
         if(!UserValidationService.isUserValid(user)) throw new RuntimeException("-{ User invalid!");
+        // ( parsea a "Entity" y retorna el Modelo de Dominio )
         return MapperEntity.toDomain(springDataUserRepository.save(MapperEntity.toEntity(user)));
     }
 
@@ -30,8 +37,7 @@ public class JpaUserRepositoryAdapter implements UserRepositoryOutPort {
     public User findUser(Long id) {
         return MapperEntity.toDomain( springDataUserRepository
                 .findById(id)
-                .orElseThrow(()->new EntityNotFoundException("-{ User with -Id : "+id+" not found..."))
-        );
+                .orElseThrow(()->new EntityNotFoundException("-{ User with -Id : "+id+" not found...")));
     }
 
     @Override
@@ -39,13 +45,12 @@ public class JpaUserRepositoryAdapter implements UserRepositoryOutPort {
     public User findUser(String email) {
         return MapperEntity.toDomain( springDataUserRepository
                 .findByEmailIgnoreCase(email.strip())
-                .orElseThrow(()->new EntityNotFoundException("-{ User with -Email : "+email+" not found..."))
-        );
+                .orElseThrow(()->new EntityNotFoundException("-{ User with -Email : "+email+" not found...")));
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<User> getListOfUsers() {
-        return MapperEntity.listMapper(springDataUserRepository.findAll());
+        return MapperEntity.listMapperToDomain(springDataUserRepository.findAll());
     }
 }

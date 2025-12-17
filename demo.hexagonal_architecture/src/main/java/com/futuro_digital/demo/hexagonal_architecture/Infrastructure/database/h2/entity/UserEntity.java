@@ -8,6 +8,11 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
+/**
+ * Entidad a persistir en Base de Datos
+ * ( ORM )
+ * ( sin lógica adicional ni campos extras, solo validaciones )
+ */
 @Data
 @Entity
 @AllArgsConstructor

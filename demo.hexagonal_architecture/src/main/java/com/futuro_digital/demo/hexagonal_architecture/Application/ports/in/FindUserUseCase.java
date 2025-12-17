@@ -1,10 +1,10 @@
 package com.futuro_digital.demo.hexagonal_architecture.Application.ports.in;
 
-import com.futuro_digital.demo.hexagonal_architecture.Application.dto.UserDTO;
+import com.futuro_digital.demo.hexagonal_architecture.Infrastructure.rest.controller.dto.UserResponse;
 
 public interface FindUserUseCase {
 
-    UserDTO findUser(Long id);
+    UserResponse findUser(Long id);
 
-    UserDTO findUser(String email);
+    UserResponse findUser(String email);
 }

@@ -5,6 +5,9 @@ import com.futuro_digital.demo.hexagonal_architecture.Infrastructure.database.h2
 
 import java.util.List;
 
+/**
+ * Utilidades para Parsear el Modelo de Dominio a "Entity" y viceversa
+ */
 public class MapperEntity {
 
     public static UserEntity toEntity(User user){
@@ -19,7 +22,7 @@ public class MapperEntity {
         return new User(entity.getName(), entity.getAge(), entity.getEmail());
     }
 
-    public static List<User> listMapper(List<UserEntity> entities){
+    public static List<User> listMapperToDomain(List<UserEntity> entities){
         return entities.parallelStream().map(MapperEntity::toDomain).toList();
     }
 }
